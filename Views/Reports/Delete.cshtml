@@ -1,0 +1,96 @@
+@model NabihniElectricity.Models.Report
+
+@{
+    ViewData["Title"] = "حذف البلاغ";
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-danger">حذف البلاغ</h1>
+        <p class="text-light">
+            هل أنت متأكد من حذف هذا البلاغ؟ لا يمكن التراجع بعد الحذف
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4 p-4"
+                 style="background:#11243d;">
+
+                <table class="table table-dark table-hover align-middle">
+
+                    <tbody>
+
+                        <tr>
+                            <th>اسم المبلغ</th>
+                            <td>@Model.ReporterName</td>
+                        </tr>
+
+                        <tr>
+                            <th>رقم الجوال</th>
+                            <td>@Model.Phone</td>
+                        </tr>
+
+                        <tr>
+                            <th>الموقع</th>
+                            <td>@Model.Location</td>
+                        </tr>
+
+                        <tr>
+                            <th>نوع البلاغ</th>
+                            <td>@Model.ReportType</td>
+                        </tr>
+
+                        <tr>
+                            <th>الوصف</th>
+                            <td>@Model.Description</td>
+                        </tr>
+
+                        <tr>
+                            <th>تاريخ البلاغ</th>
+                            <td>@Model.CreatedAt</td>
+                        </tr>
+
+                        <tr>
+                            <th>الحالة</th>
+                            <td>
+                                <span class="badge bg-success">
+                                    @Model.Status
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <form asp-action="Delete">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn btn-danger px-5 rounded-pill">
+                            🗑️ حذف البلاغ
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-light rounded-pill">
+                            رجوع
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

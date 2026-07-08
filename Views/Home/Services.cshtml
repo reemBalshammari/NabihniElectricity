@@ -1,0 +1,108 @@
+@using System.Globalization
+
+@{
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "الخدمات" : "Services";
+}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold" style="color:#7CFF57;">
+            @(isArabic ? "خدمات النظام" : "System Services")
+        </h1>
+
+        <p class="text-muted fs-5">
+            @(isArabic
+                ? "الخدمات التي يقدمها نظام نبهني كهرباء"
+                : "Services Provided by Nabihni Electricity System")
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            <div class="card border-0 shadow rounded-4 h-100 p-4">
+
+                <i class="bi bi-lightning-charge-fill fs-1 text-success mb-3"></i>
+
+                <h4>
+                    @(isArabic ? "إدارة البلاغات" : "Reports Management")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "إنشاء البلاغات الكهربائية وإدارتها بسهولة."
+                        : "Create and manage electrical reports easily.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card border-0 shadow rounded-4 h-100 p-4">
+
+                <i class="bi bi-search fs-1 text-success mb-3"></i>
+
+                <h4>
+                    @(isArabic ? "متابعة البلاغ" : "Track Reports")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "متابعة حالة البلاغ حتى يتم إنجازه."
+                        : "Track the report status until it is completed.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card border-0 shadow rounded-4 h-100 p-4">
+
+                <i class="bi bi-bell-fill fs-1 text-success mb-3"></i>
+
+                <h4>
+                    @(isArabic ? "الإشعارات" : "Notifications")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "استلام إشعارات عند تحديث حالة البلاغ."
+                        : "Receive notifications when the report status is updated.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card border-0 shadow rounded-4 h-100 p-4">
+
+                <i class="bi bi-person-circle fs-1 text-success mb-3"></i>
+
+                <h4>
+                    @(isArabic ? "إدارة الحساب" : "Account Management")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "إنشاء الحساب وتحديث بيانات المستخدم."
+                        : "Create an account and update user information.")
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

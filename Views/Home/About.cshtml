@@ -1,0 +1,78 @@
+@using System.Globalization
+
+@{
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "من نحن" : "About Us";
+}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold" style="color:#7CFF57;">
+            @(isArabic ? "من نحن" : "About Us")
+        </h1>
+
+        <p class="text-muted fs-5">
+            @(isArabic
+                ? "تعرف على منصة نبهني كهرباء"
+                : "Learn More About Nabihni Electricity")
+        </p>
+
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4 p-5">
+
+        <h3 class="mb-4">
+            @(isArabic ? "نبذة عن النظام" : "About the System")
+        </h3>
+
+        <p class="fs-5">
+
+            @(isArabic
+                ? "نبهني كهرباء هو نظام إلكتروني ذكي يهدف إلى تسهيل استقبال البلاغات الكهربائية وإدارتها ومتابعتها من خلال واجهة سهلة الاستخدام تساعد المستخدم على إنشاء البلاغ ومتابعة حالته حتى يتم إنجازه."
+                : "Nabihni Electricity is a smart electronic system designed to simplify receiving, managing, and tracking electrical reports through an easy-to-use interface that allows users to create reports and monitor their status until completion.")
+
+        </p>
+
+        <hr>
+
+        <h4 class="mt-4">
+            @(isArabic ? "الرؤية" : "Vision")
+        </h4>
+
+        <p>
+
+            @(isArabic
+                ? "تقديم منصة رقمية تسهم في تحسين جودة الخدمات الكهربائية وتسريع معالجة البلاغات."
+                : "Provide a digital platform that improves the quality of electrical services and speeds up report processing.")
+
+        </p>
+
+        <h4 class="mt-4">
+            @(isArabic ? "الأهداف" : "Goals")
+        </h4>
+
+        <ul>
+
+            <li>
+                @(isArabic ? "تسهيل إنشاء البلاغات" : "Simplify Report Creation")
+            </li>
+
+            <li>
+                @(isArabic ? "متابعة حالة البلاغ" : "Track Report Status")
+            </li>
+
+            <li>
+                @(isArabic ? "تنظيم البيانات" : "Organize Data")
+            </li>
+
+            <li>
+                @(isArabic ? "توفير تجربة استخدام سهلة وآمنة" : "Provide a Safe and User-Friendly Experience")
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>

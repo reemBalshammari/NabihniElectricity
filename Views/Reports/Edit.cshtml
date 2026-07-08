@@ -1,0 +1,98 @@
+@model NabihniElectricity.Models.Report
+
+@{
+    ViewData["Title"] = "تعديل البلاغ";
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-success">تعديل البلاغ</h1>
+        <p class="text-light">
+            يمكنك تعديل بيانات البلاغ ثم حفظ التعديلات
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4 p-4"
+                 style="background:#11243d;">
+
+                <form asp-action="Edit">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="ReporterName" class="form-label text-white"></label>
+                        <input asp-for="ReporterName" class="form-control" />
+                        <span asp-validation-for="ReporterName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label text-white"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Location" class="form-label text-white"></label>
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ReportType" class="form-label text-white"></label>
+                        <input asp-for="ReportType" class="form-control" />
+                        <span asp-validation-for="ReportType" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label text-white"></label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CreatedAt" class="form-label text-white"></label>
+                        <input asp-for="CreatedAt" class="form-control" readonly />
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Status" class="form-label text-white"></label>
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn btn-success px-5 rounded-pill">
+                            💾 حفظ التعديلات
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-light rounded-pill">
+                            رجوع
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

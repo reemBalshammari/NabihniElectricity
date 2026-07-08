@@ -1,0 +1,128 @@
+@using System.Globalization
+
+@{
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "أنواع البلاغات" : "Report Types";
+}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold" style="color:#7CFF57;">
+            @(isArabic ? "أنواع البلاغات" : "Report Types")
+        </h1>
+
+        <p class="text-muted">
+            @(isArabic
+                ? "اختر نوع البلاغ الذي ترغب في الإبلاغ عنه"
+                : "Choose the type of report you would like to submit.")
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center p-4">
+
+                <i class="bi bi-lightning-charge-fill text-warning fs-1"></i>
+
+                <h4 class="mt-3">
+                    @(isArabic ? "انقطاع كهرباء" : "Power Outage")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "الإبلاغ عن انقطاع التيار الكهربائي."
+                        : "Report a power outage.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center p-4">
+
+                <i class="bi bi-exclamation-triangle-fill text-danger fs-1"></i>
+
+                <h4 class="mt-3">
+                    @(isArabic ? "تماس كهربائي" : "Electrical Short Circuit")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "الإبلاغ عن التماس أو الشرر الكهربائي."
+                        : "Report an electrical short circuit or sparks.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center p-4">
+
+                <i class="bi bi-lamp-fill text-success fs-1"></i>
+
+                <h4 class="mt-3">
+                    @(isArabic ? "أعطال الإنارة" : "Lighting Faults")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "الإبلاغ عن أعطال أعمدة الإنارة."
+                        : "Report street lighting faults.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center p-4">
+
+                <i class="bi bi-broadcast text-primary fs-1"></i>
+
+                <h4 class="mt-3">
+                    @(isArabic ? "محول كهربائي" : "Electrical Transformer")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "الإبلاغ عن أعطال المحولات الكهربائية."
+                        : "Report electrical transformer faults.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center p-4">
+
+                <i class="bi bi-tools text-secondary fs-1"></i>
+
+                <h4 class="mt-3">
+                    @(isArabic ? "أخرى" : "Other")
+                </h4>
+
+                <p>
+                    @(isArabic
+                        ? "أي بلاغات كهربائية أخرى."
+                        : "Any other electrical reports.")
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

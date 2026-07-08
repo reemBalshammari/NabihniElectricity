@@ -1,0 +1,91 @@
+ @model NabihniElectricity.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "الملف الشخصي";
+}
+
+<section class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header text-center py-4"
+                     style="background:linear-gradient(135deg,#0F2E2C,#143B39);">
+
+                    <i class="bi bi-person-circle"
+                       style="font-size:70px;color:#7CFF57;"></i>
+
+                    <h2 class="text-white mt-3">
+                        الملف الشخصي
+                    </h2>
+
+                </div>
+
+                <div class="card-body p-5">
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success text-center">
+                            @TempData["Success"]
+                        </div>
+                    }
+
+                    <form asp-action="Profile" method="post">
+
+                        <div class="mb-4">
+
+                            <label asp-for="FirstName" class="fw-bold">
+                                الاسم الأول
+                            </label>
+
+                            <input asp-for="FirstName"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="LastName" class="fw-bold">
+                                اسم العائلة
+                            </label>
+
+                            <input asp-for="LastName"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="fw-bold">
+                                البريد الإلكتروني
+                            </label>
+
+                            <input class="form-control"
+                                   value="@Model.Email"
+                                   readonly />
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-success w-100">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            تحديث البيانات
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

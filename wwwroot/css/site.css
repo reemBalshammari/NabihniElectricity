@@ -1,0 +1,326 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+
+/*====================================
+| Nabihni Electricity
+====================================*/
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width:768px){
+    html{
+        font-size:16px;
+    }
+}
+
+:root{
+
+    --main1:#64ff5b;
+    --main2:#4ecb47;
+
+    --bg:#06131F;
+    --bg2:#0B1828;
+    --card:#122438;
+
+    --text:#ffffff;
+    --text2:#B9C9D8;
+
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top,
+    #164642 0%,
+    #103235 25%,
+    #0B2228 55%,
+    #07141C 100%);
+
+    color:var(--text);
+
+    font-family:'Cairo',sans-serif;
+
+}
+.hero{
+
+    min-height:90vh;
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.hero .container{
+
+    position:relative;
+
+    z-index:10;
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-220px;
+
+    top:-180px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(90,255,120,.22),
+    transparent 70%);
+
+    pointer-events:none;
+
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+
+    height:500px;
+
+    left:-180px;
+
+    bottom:-180px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(70,255,120,.08),
+    transparent 70%);
+
+    pointer-events:none;
+
+}
+
+.hero-logo{
+
+    width:520px;
+
+    max-width:100%;
+
+    filter:
+    drop-shadow(0 0 25px rgba(120,255,120,.35));
+
+}
+/*=========================
+| Buttons
+=========================*/
+
+.btn-main{
+
+    background:linear-gradient(90deg,#45C944,#78FF4E);
+
+    color:white;
+
+    border:none;
+
+    padding:12px 35px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.btn-main:hover{
+
+    color:white;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 25px rgba(100,255,91,.45);
+
+}
+
+.btn-outline-light{
+
+    padding:12px 35px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.btn-outline-light:hover{
+
+    background:white;
+
+    color:#0B1828;
+
+}
+
+/*=========================
+| Section Title
+=========================*/
+
+.section-title{
+
+    color:var(--main1);
+
+    font-size:38px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+/*=========================
+| Cards
+=========================*/
+
+.card-custom{
+
+    background:linear-gradient(180deg,#11283C,#0B1828);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:22px;
+
+    padding:35px 25px;
+
+    color:white;
+
+    transition:.35s;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
+
+.card-custom:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#64ff5b;
+
+    box-shadow:
+        0 0 25px rgba(100,255,91,.18),
+        0 15px 40px rgba(0,0,0,.35);
+
+}
+
+.card-custom h4{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin-top:18px;
+
+    margin-bottom:15px;
+
+}
+
+.card-custom p{
+
+    color:#C8D4DF;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+/*=========================
+| Icons
+=========================*/
+
+.service-icon{
+
+    display:block;
+
+    font-size:52px;
+
+    color:#67FF61;
+
+    margin-bottom:20px;
+
+    transition:.35s;
+
+    text-shadow:
+        0 0 8px rgba(103,255,97,.55),
+        0 0 18px rgba(103,255,97,.35);
+
+}
+
+.card-custom:hover .service-icon{
+
+    transform:scale(1.12);
+
+    color:#8CFF88;
+
+}
+/* روابط الناف بار */
+.navbar-nav .nav-link{
+    color:#ffffff !important;
+    font-weight:600;
+    margin:0 10px;
+    transition:.3s;
+}
+
+/* عند المرور */
+.navbar-nav .nav-link:hover{
+    color: #7cff57 !important;
+}
+
+/* الصفحة الحالية */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:focus{
+    color:#ffffff !important;
+}

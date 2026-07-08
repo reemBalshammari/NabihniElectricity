@@ -1,0 +1,345 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using NabihniElectricity.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var htmlDir = isRTL ? "rtl" : "ltr";
+    var htmlLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+}
+
+<!DOCTYPE html>
+
+<html lang="@htmlLang" dir="@htmlDir">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - نبهني كهرباء</title>
+
+    <script type="importmap"></script>
+
+    @if (isRTL)
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    }
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/NabihniElectricity.styles.css"
+          asp-append-version="true" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap"
+          rel="stylesheet" />
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar navbar-expand-lg shadow-sm"
+     style="background:linear-gradient(90deg,#0F2E2C,#143B39,#0F2E2C);
+     border-bottom:1px solid rgba(124,255,87,.18)">
+
+<div class="container-fluid px-4">
+
+    <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none"
+       asp-controller="Home"
+       asp-action="Index">
+
+        <div style="
+        width:48px;
+        height:48px;
+        border-radius:14px;
+        background:linear-gradient(135deg,#7CFF57,#FFD84D);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 0 18px rgba(124,255,87,.45);">
+
+            <i class="bi bi-lightning-charge-fill"
+               style="font-size:25px;color:#0b1828;"></i>
+
+        </div>
+
+        <div class="d-flex flex-column">
+
+            <span style="
+            color:white;
+            font-weight:800;
+            font-size:21px;
+            line-height:1;">
+                نبهني
+            </span>
+
+            <small style="
+            color:#7CFF57;
+            font-size:12px;
+            font-weight:700;">
+                كهرباء
+            </small>
+
+        </div>
+
+    </a>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain">
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+
+    <ul class="navbar-nav mx-auto">
+
+        <li class="nav-item">
+            <a class="nav-link active text-white fw-bold px-3"
+               asp-controller="Home"
+               asp-action="Index">
+                @(isRTL ? "الرئيسية" : "Home")
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white px-3"
+               asp-controller="Reports"
+               asp-action="Index">
+                @(isRTL ? "البلاغات" : "Reports")
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white px-3"
+               asp-controller="Home"
+               asp-action="ReportTypes">
+                @(isRTL ? "أنواع البلاغات" : "Report Types")
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white px-3"
+               asp-controller="Home"
+               asp-action="Services">
+                @(isRTL ? "الخدمات" : "Services")
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white px-3"
+               asp-controller="Home"
+               asp-action="About">
+                @(isRTL ? "من نحن" : "About Us")
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white px-3"
+               asp-controller="Home"
+               asp-action="Contact">
+                @(isRTL ? "اتصل بنا" : "Contact Us")
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="d-flex align-items-center gap-2">
+
+        <partial name="_SelectLanguage" />
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <div class="dropdown">
+
+                @{
+                    var currentUser = await UserManager.GetUserAsync(User);
+                }
+
+                <button class="btn btn-outline-light dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown">
+
+                    <i class="bi bi-person-circle"></i>
+
+                    @(string.IsNullOrWhiteSpace(currentUser?.FirstName)
+                        ? currentUser?.Email
+                        : $"{currentUser.FirstName} {currentUser.LastName}")
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <a class="dropdown-item"
+                           asp-controller="Home"
+                           asp-action="Profile">
+
+                            <i class="bi bi-person"></i>
+                            @(isRTL ? "الملف الشخصي" : "Profile")
+
+                        </a>
+                    </li>
+
+                    <li><hr class="dropdown-divider" /></li>
+
+                    <li>
+                        <form asp-controller="Account"
+      asp-action="Logout"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <button type="submit"
+            class="dropdown-item text-danger">
+
+        <i class="bi bi-box-arrow-right"></i>
+        @(isRTL ? "تسجيل الخروج" : "Logout")
+
+    </button>
+
+</form>
+
+                </li>
+
+            </ul>
+
+        </div>
+    }
+    else
+    {
+        <a asp-controller="Account"
+           asp-action="Login"
+           class="btn btn-outline-light text-white">
+
+            <i class="bi bi-box-arrow-in-right"></i>
+            @(isRTL ? "تسجيل الدخول" : "Login")
+
+        </a>
+
+        <a asp-controller="Account"
+           asp-action="Register"
+           class="btn btn-outline-light text-white">
+
+            <i class="bi bi-person-plus"></i>
+            @(isRTL ? "إنشاء حساب" : "Register")
+
+        </a>
+    }
+
+</div>
+
+</div>
+
+</div>
+
+</nav>
+
+</header>
+
+<div class="container-fluid p-0">
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+</div>
+
+<footer style="background:linear-gradient(90deg,#0F2E2C,#143B39,#0F2E2C);
+border-top:1px solid rgba(124,255,87,.18);
+margin-top:70px;">
+
+    <div class="container">
+
+        <div class="row py-4 align-items-center">
+
+            <div class="col-lg-4 text-center text-lg-end mb-3 mb-lg-0">
+
+                <h5 class="fw-bold text-white mb-1">
+
+                    <i class="bi bi-lightning-charge-fill"
+                       style="color:#7CFF57;"></i>
+
+                    نبهني كهرباء
+
+                </h5>
+
+                <small style="color:#bfc9cf;">
+                    @(isRTL
+                        ? "نظام إلكتروني لإدارة البلاغات الكهربائية"
+                        : "Electronic System for Managing Electrical Reports")
+                </small>
+
+            </div>
+
+            <div class="col-lg-4 text-center mb-3 mb-lg-0">
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="text-decoration-none text-white mx-2">
+                    @(isRTL ? "الرئيسية" : "Home")
+                </a>
+
+                <a asp-controller="Reports"
+                   asp-action="Index"
+                   class="text-decoration-none text-white mx-2">
+                    @(isRTL ? "البلاغات" : "Reports")
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Services"
+                   class="text-decoration-none text-white mx-2">
+                    @(isRTL ? "الخدمات" : "Services")
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Contact"
+                   class="text-decoration-none text-white mx-2">
+                    @(isRTL ? "اتصل بنا" : "Contact Us")
+                </a>
+
+            </div>
+
+            <div class="col-lg-4 text-center text-lg-start">
+
+                <small style="color:#bfc9cf;">
+                    @(isRTL
+                        ? "© 2026 جميع الحقوق محفوظة"
+                        : "© 2026 All Rights Reserved")
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

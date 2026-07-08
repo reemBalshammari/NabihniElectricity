@@ -1,0 +1,320 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@model NabihniElectricity.Models.ReportViewModel
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    Layout = "_DashboardLayout";
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "إدارة البلاغات" : "Reports Management";
+}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                @(isArabic ? "إدارة البلاغات الكهربائية" : "Electrical Reports Management")
+            </h2>
+
+            <p class="text-light">
+                @(isArabic
+                    ? "إضافة البلاغات وعرضها وتعديلها وحذفها"
+                    : "Add, View, Edit and Delete Reports")
+            </p>
+
+        </div>
+<form asp-action="Index" method="get" class="mb-4">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <input type="text"
+                   name="searchTerm"
+                   value="@ViewBag.SearchTerm"
+                   class="form-control"
+                   placeholder="@(isArabic ? "ابحث باسم المبلغ أو الموقع أو نوع البلاغ" : "Search by Reporter, Location or Report Type")" />
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button type="submit" class="btn btn-main w-100">
+
+                <i class="bi bi-search"></i>
+
+                @(isArabic ? "بحث" : "Search")
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+        <div class="card-custom mb-5">
+
+            <h4 class="mb-4">
+                <i class="bi bi-plus-circle-fill service-icon" style="font-size:35px;"></i>
+                @(isArabic ? "إضافة بلاغ جديد" : "Add New Report")
+            </h4>
+         <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row g-3">
+
+        <div class="col-md-6">
+
+            <label class="form-label text-white">
+                @SharedLocalizer["ReporterName"]
+            </label>
+
+            <input asp-for="NewReport.ReporterName" class="form-control" />
+
+            <span asp-validation-for="NewReport.ReporterName" class="text-danger"></span>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <label class="form-label text-white">
+                @SharedLocalizer["Phone"]
+            </label>
+
+            <input asp-for="NewReport.Phone" class="form-control" />
+
+            <span asp-validation-for="NewReport.Phone" class="text-danger"></span>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <label class="form-label text-white">
+                @SharedLocalizer["Location"]
+            </label>
+
+            <input asp-for="NewReport.Location" class="form-control" />
+
+            <span asp-validation-for="NewReport.Location" class="text-danger"></span>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <label class="form-label text-white">
+                @SharedLocalizer["ReportType"]
+            </label>
+
+            <select asp-for="NewReport.ReportType" class="form-control">
+
+                <option value="">
+                    @(isArabic ? "اختر نوع البلاغ" : "Select Report Type")
+                </option>
+
+                <option value="Power Outage">
+                    @(isArabic ? "انقطاع كهرباء" : "Power Outage")
+                </option>
+
+                <option value="Meter">
+                    @(isArabic ? "عداد" : "Meter")
+                </option>
+
+                <option value="Bill">
+                    @(isArabic ? "فاتورة" : "Bill")
+                </option>
+
+                <option value="Maintenance">
+                    @(isArabic ? "صيانة" : "Maintenance")
+                </option>
+
+                <option value="High Consumption">
+                    @(isArabic ? "استهلاك مرتفع" : "High Consumption")
+                </option>
+
+            </select>
+
+            <span asp-validation-for="NewReport.ReportType" class="text-danger"></span>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <label class="form-label text-white">
+                @SharedLocalizer["Description"]
+            </label>
+
+            <textarea asp-for="NewReport.Description"
+                      class="form-control"
+                      rows="4"></textarea>
+
+            <span asp-validation-for="NewReport.Description" class="text-danger"></span>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <label class="form-label text-white">
+                @SharedLocalizer["Status"]
+            </label>
+
+            <select asp-for="NewReport.Status" class="form-control">
+
+                <option value="New">
+                    @(isArabic ? "جديد" : "New")
+                </option>
+
+                <option value="In Progress">
+                    @(isArabic ? "قيد المعالجة" : "In Progress")
+                </option>
+
+                <option value="Completed">
+                    @(isArabic ? "مكتمل" : "Completed")
+                </option>
+
+            </select>
+
+        <div class="col-md-12">
+
+    <label class="form-label text-white">
+        @(isArabic ? "صورة البلاغ" : "Report Image")
+    </label>
+
+    <input asp-for="NewReport.ImageFile"
+           type="file"
+           class="form-control" />
+
+           <span asp-validation-for="NewReport.ImageFile"
+      class="text-danger"></span>
+
+</div>
+
+<div class="col-12 mt-4">
+
+    <button type="submit" class="btn btn-main">
+
+        <i class="bi bi-save"></i>
+
+        @(isArabic ? "حفظ البلاغ" : "Save Report")
+
+    </button>
+
+</div>
+
+    </div>
+
+</form>
+
+        </div>
+        <div class="card-custom">
+
+            <h4 class="mb-4">
+                <i class="bi bi-list-check service-icon" style="font-size:35px;"></i>
+                @(isArabic ? "قائمة البلاغات" : "Reports List")
+            </h4>
+
+            <table class="table table-dark table-hover text-center align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>@(isArabic ? "اسم المبلغ" : "Reporter")</th>
+
+                        <th>@(isArabic ? "رقم الجوال" : "Phone")</th>
+
+                        <th>@(isArabic ? "الموقع" : "Location")</th>
+
+                        <th>@(isArabic ? "نوع البلاغ" : "Report Type")</th>
+
+                        <th>@(isArabic ? "الوصف" : "Description")</th>
+
+                        <th>@(isArabic ? "التاريخ" : "Date")</th>
+
+                        <th>@(isArabic ? "الحالة" : "Status")</th>
+                        <th>@(isArabic ? "صورة البلاغ" : "Report Image")</th>
+
+                        <th>@(isArabic ? "العمليات" : "Actions")</th>
+
+                    </tr>
+
+                </thead>
+
+               <tbody>
+
+    @foreach (var item in Model.Reports)
+    {
+        <tr>
+
+            <td>@item.ReporterName</td>
+
+            <td>@item.Phone</td>
+
+            <td>@item.Location</td>
+
+            <td>@item.ReportType</td>
+
+            <td>@item.Description</td>
+
+            <td>@item.CreatedAt.ToShortDateString()</td>
+
+            <td>
+                @if (item.Status == "New")
+                {
+                    <span class="badge bg-primary">
+                        @(isArabic ? "جديد" : "New")
+                    </span>
+                }
+                else if (item.Status == "In Progress")
+                {
+                    <span class="badge bg-warning text-dark">
+                        @(isArabic ? "قيد المعالجة" : "In Progress")
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-success">
+                        @(isArabic ? "مكتمل" : "Completed")
+                    </span>
+                }
+            </td>
+
+            <td>
+                @if (!string.IsNullOrEmpty(item.ImagePath))
+                {
+                    <img src="~/Uploads/@item.ImagePath"
+                         width="70"
+                         height="70"
+                         style="border-radius:10px; object-fit:cover;" />
+                }
+                else
+                {
+                    <span class="text-muted">
+                        @(isArabic ? "لا توجد صورة" : "No Image")
+                    </span>
+                }
+            </td>
+
+            <td>
+
+                <a asp-action="Edit"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-outline-warning">
+                    @(isArabic ? "تعديل" : "Edit")
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-outline-danger">
+                    @(isArabic ? "حذف" : "Delete")
+                </a>
+
+            </td>
+
+        </tr>
+    }
+
+</tbody>

@@ -1,0 +1,43 @@
+@model List<NabihniElectricity.Models.ApiProduct>
+
+@{
+    ViewData["Title"] = "API Products";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">اختبار ربط ال API</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+
+                    <img src="@item.Image"
+                         class="card-img-top"
+                         style="height:250px; object-fit:contain;" />
+
+                    <div class="card-body">
+
+                        <h5>@item.Title</h5>
+
+                        <p>
+                            @(item.Description?.Length > 100
+                                ? item.Description.Substring(0,100) + "..."
+                                : item.Description)
+                        </p>
+
+                        <h4 class="text-success">
+                            $@item.Price
+                        </h4>
+
+                        <span class="badge bg-primary">
+                            @item.Category
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

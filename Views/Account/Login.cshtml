@@ -1,0 +1,181 @@
+@using System.Globalization
+@model NabihniElectricity.Models.LoginViewModel
+
+@{
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "تسجيل الدخول" : "Login";
+}
+
+<div class="row justify-content-center mt-5 mb-5">
+
+    <div class="col-lg-5 col-md-7">
+
+        <div class="card border-0 rounded-4 shadow-lg"
+             style="
+             background:linear-gradient(180deg,#ffffff,#f7fffb);
+             box-shadow:0 15px 35px rgba(0,0,0,.20)!important;">
+
+            <div class="card-body p-5">
+
+                <div class="text-center mb-4">
+
+                    <div style="
+                        width:80px;
+                        height:80px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:linear-gradient(135deg,#7CFF57,#FFD84D);
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        box-shadow:0 0 20px rgba(124,255,87,.45);">
+
+                        <i class="bi bi-lightning-charge-fill"
+                           style="font-size:38px;color:#0F2E2C;"></i>
+
+                    </div>
+
+                    <h2 class="fw-bold mt-3 mb-2"
+                        style="color:#143B39;">
+
+                        @(isArabic ? "تسجيل الدخول" : "Login")
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        @(isArabic
+                            ? "أهلاً بك في نظام نبهني كهرباء"
+                            : "Welcome to Nabihni Electricity System")
+
+                    </p>
+
+                </div>
+
+                <form method="post" asp-action="Login">
+
+                    <input type="hidden" asp-for="ReturnUrl" />
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label fw-bold">
+
+                            @(isArabic ? "البريد الإلكتروني" : "Email")
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-envelope-fill text-success"></i>
+                            </span>
+
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="name@example.com"
+                                   style="height:50px;" />
+
+                        </div>
+
+                        <span asp-validation-for="Email"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Password"
+                               class="form-label fw-bold">
+
+                            @(isArabic ? "كلمة المرور" : "Password")
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-lock-fill text-success"></i>
+                            </span>
+
+                            <input asp-for="Password"
+                                   class="form-control"
+                                   placeholder="********"
+                                   style="height:50px;" />
+
+                        </div>
+
+                        <span asp-validation-for="Password"
+                              class="text-danger"></span>
+                              </div>
+
+                    <div class="form-check mb-4">
+
+                        <input asp-for="RememberMe"
+                               class="form-check-input" />
+
+                        <label asp-for="RememberMe"
+                               class="form-check-label">
+
+                            @(isArabic ? "تذكرني" : "Remember Me")
+
+                        </label>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn w-100 fw-bold"
+                            style="
+                            background:linear-gradient(90deg,#7CFF57,#B9FF59);
+                            color:#0F2E2C;
+                            border:none;
+                            height:52px;
+                            border-radius:15px;
+                            font-size:18px;">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        @(isArabic ? "دخول" : "Login")
+
+                    </button>
+
+                </form>
+
+                <hr class="my-4"/>
+
+                <div class="text-center">
+
+                    <span class="text-muted">
+
+                        @(isArabic ? "ليس لديك حساب؟" : "Don't have an account?")
+
+                    </span>
+
+                    <a asp-action="Register"
+                       class="fw-bold text-decoration-none"
+                       style="color:#2E8B57;">
+
+                        @(isArabic ? "إنشاء حساب جديد" : "Create New Account")
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

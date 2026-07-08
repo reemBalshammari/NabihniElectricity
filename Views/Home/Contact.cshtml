@@ -1,0 +1,105 @@
+@using System.Globalization
+@model NabihniElectricity.Models.ContactMessage
+
+@{
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "اتصل بنا" : "Contact Us";
+}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold" style="color:#7CFF57;">
+            @(isArabic ? "اتصل بنا" : "Contact Us")
+        </h1>
+
+        <p class="text-muted fs-5">
+            @(isArabic ? "يسعدنا تواصلك معنا" : "We Are Happy to Hear From You")
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4 p-5">
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                <form asp-action="Contact" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-bold">
+                            @(isArabic ? "الاسم" : "Name")
+                        </label>
+
+                        <input asp-for="Name"
+                               class="form-control"
+                               placeholder="@(isArabic ? "اكتب اسمك" : "Enter Your Name")" />
+
+                        <span asp-validation-for="Name" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-bold">
+                            @(isArabic ? "البريد الإلكتروني" : "Email")
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="name@example.com" />
+
+                        <span asp-validation-for="Email" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-bold">
+                            @(isArabic ? "الرسالة" : "Message")
+                        </label>
+
+                        <textarea asp-for="Message"
+                                  rows="5"
+                                  class="form-control"
+                                  placeholder="@(isArabic ? "اكتب رسالتك هنا" : "Write Your Message Here")"></textarea>
+
+                        <span asp-validation-for="Message" class="text-danger"></span>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success px-5">
+                        <i class="bi bi-send-fill"></i>
+                        @(isArabic ? "إرسال" : "Send")
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

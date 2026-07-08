@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+
+  <data name="Categories" xml:space="preserve">
+    <value>أنواع البلاغات</value>
+  </data>
+
+  <data name="Products" xml:space="preserve">
+    <value>البلاغات</value>
+  </data>
+
+  <data name="Reports" xml:space="preserve">
+    <value>استعراض البلاغات</value>
+  </data>
+
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+
+  <data name="StoreSystem" xml:space="preserve">
+    <value>نبهني كهرباء</value>
+  </data>
+
+  <data name="Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+
+  <data name="AboutUs" xml:space="preserve">
+    <value>من نحن</value>
+  </data>
+
+  <data name="ContactUs" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+
+  <data name="Services" xml:space="preserve">
+    <value>خدمات النظام</value>
+  </data>
+
+  <data name="HowItWorks" xml:space="preserve">
+    <value>كيف يعمل النظام؟</value>
+  </data>
+
+  <data name="ReporterName" xml:space="preserve">
+    <value>اسم المبلغ</value>
+  </data>
+
+  <data name="Phone" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+
+  <data name="Location" xml:space="preserve">
+    <value>الموقع</value>
+  </data>
+
+  <data name="ReportType" xml:space="preserve">
+    <value>نوع البلاغ</value>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+
+  <data name="CreatedAt" xml:space="preserve">
+    <value>تاريخ البلاغ</value>
+  </data>
+
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Contact_Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+
+  <data name="Contact_Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+
+  <data name="Contact_Message" xml:space="preserve">
+    <value>الرسالة</value>
+  </data>
+
+</root>

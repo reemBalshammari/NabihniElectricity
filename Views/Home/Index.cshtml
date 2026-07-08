@@ -1,0 +1,416 @@
+﻿@using System.Globalization
+
+@{
+    var isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+    ViewData["Title"] = isArabic ? "الرئيسية" : "Home";
+}
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <span class="badge bg-success px-3 py-2 mb-3">
+                    @(isArabic ? "⚡ منصة ذكية لإدارة البلاغات الكهربائية"
+                               : "⚡ Smart Platform for Managing Electrical Reports")
+                </span>
+
+                <h1 class="display-3 fw-bold mb-4">
+
+                    <span style="color:white;">نبهني</span>
+
+                    <span style="color:#64ff5b;">كهرباء</span>
+
+                </h1>
+
+                <h3 class="mb-4">
+                    @(isArabic
+                        ? "من البلاغ إلى الإنجاز... متابعة كهربائية أسهل وأسرع"
+                        : "From Report to Completion... Easier and Faster Electrical Tracking")
+                </h3>
+
+                <p class="lead mb-5">
+                    @(isArabic
+                        ? "نظام لاستقبال البلاغات الكهربائية، تصنيفها، متابعتها وإدارة بياناتها من خلال واجهة سهلة الاستخدام."
+                        : "A system for receiving, classifying, tracking, and managing electrical reports through an easy-to-use interface.")
+                </p>
+
+                <a asp-controller="Home"
+                   asp-action="Services"
+                   class="btn btn-main me-3">
+                    @(isArabic ? "ابدأ الآن" : "Get Started")
+                </a>
+
+                <a asp-controller="Reports"
+                   asp-action="Index"
+                   class="btn btn-outline-light">
+                    @(isArabic ? "استعرض البلاغات" : "Browse Reports")
+                </a>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img src="~/images/logoElE.jpg"
+                     class="hero-logo" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="services" class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                @(isArabic ? "خدمات النظام" : "System Services")
+            </h2>
+
+            <p>
+                @(isArabic
+                    ? "كل ما تحتاجه لإدارة البلاغات الكهربائية"
+                    : "Everything You Need to Manage Electrical Reports")
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-3 col-md-6">
+
+                <a asp-controller="Reports"
+                   asp-action="Index"
+                   class="text-decoration-none text-dark">
+
+                    <div class="card-custom text-center h-100 p-4">
+
+                        <i class="bi bi-lightning-charge-fill service-icon"></i>
+
+                        <h4>@(isArabic ? "البلاغات" : "Reports")</h4>
+
+                        <p>
+                            @(isArabic
+                                ? "إنشاء وإدارة البلاغات الكهربائية بسهولة"
+                                : "Create and Manage Electrical Reports Easily")
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <a asp-controller="Home"
+                   asp-action="ReportTypes"
+                   class="text-decoration-none text-dark">
+
+                    <div class="card-custom text-center h-100 p-4">
+
+                        <i class="bi bi-card-checklist service-icon"></i>
+
+                        <h4>@(isArabic ? "أنواع البلاغات" : "Report Types")</h4>
+
+                        <p>
+                            @(isArabic
+                                ? "تنظيم البلاغات حسب نوع العطل."
+                                : "Organize Reports by Fault Type.")
+                        </p>
+
+                    </div>
+                    </a>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card-custom text-center h-100 p-4">
+
+                <i class="bi bi-bell-fill service-icon"></i>
+
+                <h4>@(isArabic ? "المتابعة" : "Tracking")</h4>
+
+                <p>
+                    @(isArabic
+                        ? "متابعة حالة البلاغ أولاً بأول."
+                        : "Track the Report Status in Real Time.")
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <a asp-controller="Account"
+               asp-action="Login"
+               class="text-decoration-none text-dark">
+
+                <div class="card-custom text-center h-100 p-4">
+
+                    <i class="bi bi-person-circle service-icon"></i>
+
+                    <h4>@(isArabic ? "حسابي" : "My Account")</h4>
+
+                    <p>
+                        @(isArabic
+                            ? "إدارة الحساب الشخصي للمستخدم"
+                            : "Manage Your Personal Account")
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                @(isArabic ? "كيف يعمل النظام؟" : "How It Works?")
+            </h2>
+
+            <p>
+                @(isArabic
+                    ? "ثلاث خطوات بسيطة لإدارة البلاغات الكهربائية"
+                    : "Three Simple Steps to Manage Electrical Reports")
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <a asp-controller="Reports"
+                   asp-action="Index"
+                   class="text-decoration-none text-dark">
+
+                    <div class="card-custom text-center h-100 p-5">
+
+                        <i class="bi bi-pencil-square service-icon"></i>
+
+                        <h4>@(isArabic ? "إنشاء بلاغ" : "Create Report")</h4>
+
+                        <p>
+                            @(isArabic
+                                ? "أدخل بيانات البلاغ وأرفق الوصف والموقع."
+                                : "Enter the Report Details and Attach the Description and Location.")
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card-custom text-center h-100 p-5">
+
+                    <i class="bi bi-search service-icon"></i>
+
+                    <h4>@(isArabic ? "متابعة الحالة" : "Track Status")</h4>
+
+                    <p>
+                        @(isArabic
+                            ? "تتبع حالة البلاغ لحظة بلحظة حتى يتم الإنجاز."
+                            : "Monitor the Report Status Until It Is Completed.")
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card-custom text-center h-100 p-5">
+
+                    <i class="bi bi-check-circle-fill service-icon"></i>
+
+                    <h4>@(isArabic ? "استلام الإشعار" : "Receive Notification")</h4>
+
+                    <p>
+                        @(isArabic
+                            ? "تصلك إشعارات فورية عند تحديث البلاغ."
+                            : "Receive Instant Notifications Whenever the Report Is Updated.")
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    </section>
+
+<section id="about" class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                @(isArabic ? "من نحن" : "About Us")
+            </h2>
+
+            <p class="lead">
+                @(isArabic
+                    ? "نبهني كهرباء هو نظام إلكتروني ذكي يهدف إلى تسهيل استقبال البلاغات الكهربائية وإدارتها ومتابعتها من خلال واجهة سهلة وآمنة تدعم المستخدم والمسؤول."
+                    : "Nabihni Electricity is a smart electronic system designed to simplify receiving, managing, and tracking electrical reports through a secure and user-friendly interface.")
+            </p>
+
+        </div>
+
+        <div class="row text-center g-4">
+
+            <div class="col-lg-4">
+
+                <div class="card-custom p-4 h-100">
+
+                    <i class="bi bi-lightning-charge-fill service-icon"></i>
+
+                    <h4>@(isArabic ? "رؤيتنا" : "Our Vision")</h4>
+
+                    <p>
+                        @(isArabic
+                            ? "تحسين سرعة الاستجابة للأعطال الكهربائية ورفع جودة الخدمات."
+                            : "Improve response time to electrical faults and enhance service quality.")
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card-custom p-4 h-100">
+
+                    <i class="bi bi-bullseye service-icon"></i>
+
+                    <h4>@(isArabic ? "رسالتنا" : "Our Mission")</h4>
+
+                    <p>
+                        @(isArabic
+                            ? "توفير منصة إلكترونية آمنة وسهلة لإدارة البلاغات الكهربائية."
+                            : "Provide a secure and easy-to-use platform for managing electrical reports.")
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card-custom p-4 h-100">
+
+                    <i class="bi bi-award-fill service-icon"></i>
+
+                    <h4>@(isArabic ? "هدفنا" : "Our Goal")</h4>
+
+                    <p>
+                        @(isArabic
+                            ? "تنظيم البلاغات وتحسين متابعتها حتى يتم حلها بسرعة وكفاءة."
+                            : "Organize reports and improve their follow-up until they are resolved quickly and efficiently.")
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="contact" class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                @(isArabic ? "اتصل بنا" : "Contact Us")
+            </h2>
+
+            <p>
+                @(isArabic
+                    ? "يسعدنا استقبال استفساراتكم وملاحظاتكم."
+                    : "We Are Happy to Receive Your Questions and Feedback.")
+            </p>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div class="card-custom p-5">
+
+                    <div class="mb-4">
+
+                        <i class="bi bi-envelope-fill text-success"></i>
+
+                        <strong>
+                            @(isArabic ? "البريد الإلكتروني:" : "Email:")
+                        </strong>
+
+                        0000000000@gmail.com
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <i class="bi bi-telephone-fill text-success"></i>
+
+                        <strong>
+                            @(isArabic ? "الهاتف:" : "Phone:")
+                        </strong>
+
+                        000000000
+
+                    </div>
+
+                    <div>
+
+                        <i class="bi bi-geo-alt-fill text-success"></i>
+
+                        <strong>
+                            @(isArabic ? "الموقع:" : "Location:")
+                        </strong>
+
+                        @(isArabic ? "المملكة العربية السعودية" : "Saudi Arabia")
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

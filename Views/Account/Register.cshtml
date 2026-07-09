@@ -51,13 +51,13 @@
 
                         <div class="mb-3">
 
-                            <label asp-for="FirstName"
-                                   class="form-label fw-bold">
+                            <label class="form-label fw-bold">
+                                @(isArabic ? "الاسم الأول" : "First Name")
                             </label>
 
                             <input asp-for="FirstName"
                                    class="form-control rounded-3 py-2"
-                                   placeholder="@(isArabic ? "الاسم الأول" : "First Name")" />
+                                   placeholder="@(isArabic ? "أدخل الاسم الأول" : "Enter First Name")" />
 
                             <span asp-validation-for="FirstName"
                                   class="text-danger"></span>
@@ -66,13 +66,13 @@
 
                         <div class="mb-3">
 
-                            <label asp-for="LastName"
-                                   class="form-label fw-bold">
+                            <label class="form-label fw-bold">
+                                @(isArabic ? "الاسم الأخير" : "Last Name")
                             </label>
 
                             <input asp-for="LastName"
                                    class="form-control rounded-3 py-2"
-                                   placeholder="@(isArabic ? "الاسم الأخير" : "Last Name")" />
+                                   placeholder="@(isArabic ? "أدخل الاسم الأخير" : "Enter Last Name")" />
 
                             <span asp-validation-for="LastName"
                                   class="text-danger"></span>
@@ -81,13 +81,13 @@
 
                         <div class="mb-3">
 
-                            <label asp-for="Email"
-                                   class="form-label fw-bold">
+                            <label class="form-label fw-bold">
+                                @(isArabic ? "البريد الإلكتروني" : "Email")
                             </label>
 
                             <input asp-for="Email"
                                    class="form-control rounded-3 py-2"
-                                   placeholder="name@example.com" />
+                                   placeholder="@(isArabic ? "أدخل البريد الإلكتروني" : "Enter Email")" />
 
                             <span asp-validation-for="Email"
                                   class="text-danger"></span>
@@ -96,14 +96,14 @@
 
                         <div class="mb-3">
 
-                            <label asp-for="Password"
-                                   class="form-label fw-bold">
+                            <label class="form-label fw-bold">
+                                @(isArabic ? "كلمة المرور" : "Password")
                             </label>
 
                             <input asp-for="Password"
                                    type="password"
                                    class="form-control rounded-3 py-2"
-                                   placeholder="********" />
+                                   placeholder="@(isArabic ? "أدخل كلمة المرور" : "Enter Password")" />
 
                             <span asp-validation-for="Password"
                                   class="text-danger"></span>
@@ -111,16 +111,17 @@
                         </div>
                         <div class="mb-4">
 
-                            <label asp-for="ConfirmPaasword"
-                                   class="form-label fw-bold">
-                            </label>
-                            <input asp-for="ConfirmPaasword"
-       type="password"
-       class="form-control rounded-3 py-2"
-       placeholder="********" />
+    <label class="form-label fw-bold">
+        @(isArabic ? "تأكيد كلمة المرور" : "Confirm Password")
+    </label>
 
-<span asp-validation-for="ConfirmPaasword"
-      class="text-danger"></span>
+    <input asp-for="ConfirmPaasword"
+           type="password"
+           class="form-control rounded-3 py-2"
+           placeholder="@(isArabic ? "أعد إدخال كلمة المرور" : "Re-enter Password")" />
+
+    <span asp-validation-for="ConfirmPaasword"
+          class="text-danger"></span>
 
 </div>
 

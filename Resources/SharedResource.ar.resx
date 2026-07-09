@@ -83,5 +83,28 @@
   <data name="Contact_Message" xml:space="preserve">
     <value>الرسالة</value>
   </data>
+  <data name="NotificationTitle" xml:space="preserve">
+  <value>تحديث حالة البلاغ</value>
+</data>
+
+<data name="NotificationMessage" xml:space="preserve">
+  <value>تم تحديث حالة البلاغ إلى:</value>
+</data>
+
+<data name="Pending" xml:space="preserve">
+  <value>قيد الانتظار</value>
+</data>
+
+<data name="InProgress" xml:space="preserve">
+  <value>قيد المعالجة</value>
+</data>
+
+<data name="Completed" xml:space="preserve">
+  <value>تمت المعالجة</value>
+</data>
+
+<data name="Rejected" xml:space="preserve">
+  <value>رُفضت المعالجة</value>
+</data>
 
 </root>

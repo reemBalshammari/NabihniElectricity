@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -12,37 +13,52 @@ namespace NabihniElectricity.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _environment;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReportsController(AppDbContext context, IWebHostEnvironment environment)
-        {
-            _context = context;
-            _environment = environment;
-        }
+        public ReportsController(
+    AppDbContext context,
+    IWebHostEnvironment environment,
+    UserManager<ApplicationUser> userManager)
+{
+    _context = context;
+    _environment = environment;
+    _userManager = userManager;
+}
 
         // البحث + عرض البلاغات
-        public async Task<IActionResult> Index(string searchTerm)
-        {
-            var query = _context.Reports.AsQueryable();
+       public async Task<IActionResult> Index(string searchTerm)
+{
+    var currentUser = await _userManager.GetUserAsync(User);
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.Where(x =>
-                    x.ReporterName.Contains(searchTerm) ||
-                    x.Location.Contains(searchTerm) ||
-                    x.ReportType.Contains(searchTerm));
-            }
+    IQueryable<Report> query;
 
-            var model = new ReportViewModel
-            {
-                Reports = await query.ToListAsync(),
-                NewReport = new Report()
-            };
+    if (User.IsInRole("Admin"))
+    {
+        query = _context.Reports;
+    }
+    else
+    {
+        query = _context.Reports.Where(r => r.UserId == currentUser!.Id);
+    }
 
-            ViewBag.SearchTerm = searchTerm;
+    if (!string.IsNullOrWhiteSpace(searchTerm))
+    {
+        query = query.Where(x =>
+            x.ReporterName.Contains(searchTerm) ||
+            x.Location.Contains(searchTerm) ||
+            x.ReportType.Contains(searchTerm));
+    }
 
-            return View(model);
-        }
+    var model = new ReportViewModel
+    {
+        Reports = await query.ToListAsync(),
+        NewReport = new Report()
+    };
 
+    ViewBag.SearchTerm = searchTerm;
+
+    return View(model);
+}
         [HttpPost]
 [ValidateAntiForgeryToken]
 public async Task<IActionResult> Create(ReportViewModel model)
@@ -68,7 +84,8 @@ public async Task<IActionResult> Create(ReportViewModel model)
 
             model.NewReport.ImagePath = fileName;
         }
-
+var currentUser = await _userManager.GetUserAsync(User);
+model.NewReport.UserId = currentUser!.Id;
         _context.Reports.Add(model.NewReport);
         await _context.SaveChangesAsync();
 
@@ -85,35 +102,99 @@ public async Task<IActionResult> Create(ReportViewModel model)
             if (id == null) return NotFound();
 
             var report = await _context.Reports.FindAsync(id);
+            var currentUser = await _userManager.GetUserAsync(User);
 
-            if (report == null) return NotFound();
+if (report == null)
+    return NotFound();
+
+if (!User.IsInRole("Admin") && report.UserId != currentUser!.Id)
+{
+    return Forbid();
+}
 
             return View(report);
         }
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, Report report)
+{
+    if (id != report.Id)
+        return NotFound();
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Report report)
+    var oldReport = await _context.Reports
+        .FirstOrDefaultAsync(r => r.Id == id);
+
+    if (oldReport == null)
+        return NotFound();
+
+    if (!User.IsInRole("Admin") && oldReport.UserId != report.UserId)
+        return Forbid();
+
+    // تحديث البيانات
+    oldReport.ReporterName = report.ReporterName;
+    oldReport.Phone = report.Phone;
+    oldReport.Location = report.Location;
+    oldReport.ReportType = report.ReportType;
+    oldReport.Description = report.Description;
+
+    // الأدمن فقط يغير الحالة
+    if (User.IsInRole("Admin"))
+    {
+        if (oldReport.Status != report.Status)
         {
-            if (id != report.Id) return NotFound();
+            string statusAr = report.Status;
+string statusEn = report.Status;
 
-            if (ModelState.IsValid)
-            {
-                _context.Update(report);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+switch (report.Status)
+{
+    case "قيد الانتظار":
+        statusEn = "Pending";
+        break;
 
-            return View(report);
+    case "قيد المعالجة":
+        statusEn = "In Progress";
+        break;
+
+    case "تمت المعالجة":
+        statusEn = "Completed";
+        break;
+
+    case "رُفضت المعالجة":
+        statusEn = "Rejected";
+        break;
+}
+           var isArabic = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+
+_context.Notifications.Add(new Notification
+{
+    UserId = oldReport.UserId!,
+    Status = report.Status,
+    CreatedAt = DateTime.Now,
+    IsRead = false
+});
         }
 
+        oldReport.Status = report.Status;
+    }
+
+    await _context.SaveChangesAsync();
+
+    return RedirectToAction(nameof(Index));
+}
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
 
             var report = await _context.Reports.FirstOrDefaultAsync(m => m.Id == id);
+            var currentUser = await _userManager.GetUserAsync(User);
 
-            if (report == null) return NotFound();
+if (report == null)
+    return NotFound();
+
+if (!User.IsInRole("Admin") && report.UserId != currentUser!.Id)
+{
+    return Forbid();
+}
 
             return View(report);
         }
@@ -123,6 +204,15 @@ public async Task<IActionResult> Create(ReportViewModel model)
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var report = await _context.Reports.FindAsync(id);
+            var currentUser = await _userManager.GetUserAsync(User);
+
+if (report == null)
+    return NotFound();
+
+if (!User.IsInRole("Admin") && report.UserId != currentUser!.Id)
+{
+    return Forbid();
+}
 
             if (report != null)
             {

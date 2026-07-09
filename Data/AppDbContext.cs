@@ -14,5 +14,7 @@ namespace NabihniElectricity.Data
         public DbSet<Report> Reports { get; set; }
 
         public DbSet<ContactMessage> ContactMessages { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

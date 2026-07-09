@@ -1,0 +1,92 @@
+@using System.Globalization
+@model IEnumerable<NabihniElectricity.Models.Notification>
+
+@{
+    bool isArabic = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar";
+
+    ViewData["Title"] = isArabic ? "الإشعارات" : "Notifications";
+    Layout = "_DashboardLayout";
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold text-success">
+            <i class="bi bi-bell-fill"></i>
+            @(isArabic ? "الإشعارات" : "Notifications")
+        </h2>
+
+        <p class="text-light">
+            @(isArabic ? "جميع تحديثات البلاغات الخاصة بك"
+                       : "All updates for your reports")
+        </p>
+
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+
+            @(isArabic ? "لا توجد إشعارات حالياً."
+                        : "There are no notifications.")
+
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            var status = item.Status;
+
+            switch (item.Status)
+            {
+                case "قيد الانتظار":
+                    status = isArabic ? "قيد الانتظار" : "Pending";
+                    break;
+
+                case "قيد المعالجة":
+                    status = isArabic ? "قيد المعالجة" : "In Progress";
+                    break;
+
+                case "تمت المعالجة":
+                    status = isArabic ? "تمت المعالجة" : "Completed";
+                    break;
+
+                case "رُفضت المعالجة":
+                    status = isArabic ? "رُفضت المعالجة" : "Rejected";
+                    break;
+            }
+
+            <div class="card shadow-sm mb-3 border-0">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold text-success">
+
+                        @(isArabic ? "تحديث حالة البلاغ"
+                                   : "Report Status Updated")
+
+                    </h5>
+
+                    <p class="mb-2">
+
+                        @(isArabic
+                            ? $"تم تحديث حالة البلاغ إلى: {status}"
+                            : $"Your report status has been updated to: {status}")
+
+                    </p>
+
+                    <small class="text-muted">
+
+                        @item.CreatedAt.ToString("yyyy/MM/dd HH:mm")
+
+                    </small>
+
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

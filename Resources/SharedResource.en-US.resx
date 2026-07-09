@@ -83,5 +83,27 @@
   <data name="Contact_Message" xml:space="preserve">
     <value>Message</value>
   </data>
+<data name="NotificationTitle" xml:space="preserve">
+  <value>Report Status Updated</value>
+</data>
 
+<data name="NotificationMessage" xml:space="preserve">
+  <value>Your report status has been updated to:</value>
+</data>
+
+<data name="Pending" xml:space="preserve">
+  <value>Pending</value>
+</data>
+
+<data name="InProgress" xml:space="preserve">
+  <value>In Progress</value>
+</data>
+
+<data name="Completed" xml:space="preserve">
+  <value>Completed</value>
+</data>
+
+<data name="Rejected" xml:space="preserve">
+  <value>Rejected</value>
+</data>
 </root>

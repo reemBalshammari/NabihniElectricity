@@ -84,12 +84,21 @@ namespace NabihniElectricity.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+if (result.Succeeded)
+{
+    // أي مستخدم جديد يصبح User
+    await _userManager.AddToRoleAsync(user, "User");
 
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
-                return RedirectToAction("Index", "Home");
-            }
+    // إذا سجل بالإيميل الرسمي يصبح Admin
+    if (user.Email == "nabihnielectricity@gmail.com")
+    {
+        await _userManager.RemoveFromRoleAsync(user, "User");
+        await _userManager.AddToRoleAsync(user, "Admin");
+    }
+
+    await _signInManager.SignInAsync(user, false);
+    return RedirectToAction("Index", "Home");
+}
 
             foreach (var error in result.Errors)
             {

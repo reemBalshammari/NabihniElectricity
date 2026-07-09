@@ -1,8 +1,12 @@
 @using System.Globalization
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Identity
 @using NabihniElectricity.Models
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @inject IViewLocalizer Localizer
+@using NabihniElectricity.Data
+@inject AppDbContext _context
+@inject UserManager<ApplicationUser> _userManager
 
 @{
     var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
@@ -44,7 +48,6 @@
         }
 
         .sidebar{
-
             width:260px;
             height:100vh;
             position:fixed;
@@ -53,40 +56,36 @@
             @(isRTL ? "right:-260px;" : "left:-260px;")
 
             background:linear-gradient(180deg,#0F2E2C,#143B39,#0F2E2C);
-
             transition:.35s;
-
             z-index:9999;
-
         }
 
         .sidebar.show{
-
             @(isRTL ? "right:0;" : "left:0;")
-
         }
 
         .sidebar .nav-link{
-
             color:#dfffe0;
             padding:13px 20px;
             margin:6px 12px;
             border-radius:10px;
             transition:.3s;
-
         }
 
         .sidebar .nav-link:hover{
-
             background:rgba(95,255,87,.18);
             color:white;
-
         }
 
         .main-content{
-
             min-height:100vh;
+        }
 
+        .notification-badge{
+            font-size:10px;
+            position:absolute;
+            top:-5px;
+            right:-6px;
         }
 
     </style>
@@ -97,101 +96,101 @@
 
 <aside class="sidebar">
 
-<div class="text-center p-4 border-bottom">
+    <div class="text-center p-4 border-bottom">
 
-<h4 class="text-white">
+        <h4 class="text-white">
 
-<i class="bi bi-lightning-charge-fill text-success"></i>
+            <i class="bi bi-lightning-charge-fill text-success"></i>
 
-@SharedLocalizer["StoreSystem"]
+            @SharedLocalizer["StoreSystem"]
 
-</h4>
+        </h4>
 
-<small class="text-light">
+        <small class="text-light">
 
-@(isRTL ? "لوحة التحكم" : "Dashboard")
+            @(isRTL ? "لوحة التحكم" : "Dashboard")
 
-</small>
+        </small>
 
-</div>
+    </div>
+    <ul class="nav flex-column mt-3">
 
-<ul class="nav flex-column mt-3">
+    <li class="nav-item">
 
-<li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Home"
+           asp-action="Index">
 
-    <a class="nav-link"
-       asp-controller="Home"
-       asp-action="Index">
+            <i class="bi bi-house-door-fill"></i>
 
-        <i class="bi bi-house-door-fill"></i>
+            @(isRTL ? "الرئيسية" : "Home")
 
-        @(isRTL ? "الرئيسية" : "Home")
+        </a>
 
-    </a>
+    </li>
 
-</li>
-<li class="nav-item">
+    <li class="nav-item">
 
-    <a class="nav-link"
-       asp-controller="Reports"
-       asp-action="Index">
+        <a class="nav-link"
+           asp-controller="Reports"
+           asp-action="Index">
 
-        <i class="bi bi-clipboard-data-fill"></i>
+            <i class="bi bi-clipboard-data-fill"></i>
 
-        @(isRTL ? "البلاغات" : "Reports")
+            @(isRTL ? "البلاغات" : "Reports")
 
-    </a>
+        </a>
 
-</li>
+    </li>
 
-<li class="nav-item">
+    <li class="nav-item">
 
-    <a class="nav-link"
-       asp-controller="Home"
-       asp-action="ReportTypes">
+        <a class="nav-link"
+           asp-controller="Home"
+           asp-action="ReportTypes">
 
-        <i class="bi bi-lightning-charge-fill"></i>
+            <i class="bi bi-lightning-charge-fill"></i>
 
-        @(isRTL ? "أنواع البلاغات" : "Report Types")
+            @(isRTL ? "أنواع البلاغات" : "Report Types")
 
-    </a>
+        </a>
 
-</li>
+    </li>
 
-<li class="nav-item">
+    <li class="nav-item">
 
-    <a class="nav-link"
-       asp-controller="Home"
-       asp-action="Contact">
+        <a class="nav-link"
+           asp-controller="Home"
+           asp-action="Contact">
 
-        <i class="bi bi-envelope-fill"></i>
+            <i class="bi bi-envelope-fill"></i>
 
-        @(isRTL ? "تواصل معنا" : "Contact Us")
+            @(isRTL ? "تواصل معنا" : "Contact Us")
 
-    </a>
+        </a>
 
-</li>
+    </li>
 
-<li class="nav-item mt-4">
+    <li class="nav-item mt-4">
 
-    <form asp-controller="Account"
-          asp-action="Logout"
-          method="post">
+        <form asp-controller="Account"
+              asp-action="Logout"
+              method="post">
 
-        @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()
 
-        <button type="submit"
-                class="nav-link text-danger border-0 bg-transparent w-100 text-start">
+            <button type="submit"
+                    class="nav-link text-danger border-0 bg-transparent w-100 text-start">
 
-            <i class="bi bi-box-arrow-right"></i>
+                <i class="bi bi-box-arrow-right"></i>
 
-            @(isRTL ? "تسجيل الخروج" : "Logout")
+                @(isRTL ? "تسجيل الخروج" : "Logout")
 
-        </button>
+            </button>
 
-    </form>
+        </form>
 
-</li>
+    </li>
 
 </ul>
 
@@ -205,21 +204,54 @@
 
 <div class="d-flex justify-content-between align-items-center">
 
-<button class="btn"
-        onclick="toggleSidebar()"
-        style="
-        background:#7CFF57;
-        color:#143B39;
-        border:none;
-        width:48px;
-        height:48px;
-        border-radius:12px;">
+    <button class="btn"
+            onclick="toggleSidebar()"
+            style="
+            background:#7CFF57;
+            color:#143B39;
+            border:none;
+            width:48px;
+            height:48px;
+            border-radius:12px;">
 
-    <i class="bi bi-list fs-3 fw-bold"></i>
+        <i class="bi bi-list fs-3 fw-bold"></i>
 
-</button>
+    </button>
 
-<h4 class="mb-0 text-white fw-bold">
+    <div class="d-flex align-items-center gap-3">
+
+        <a asp-controller="Notifications"
+           asp-action="Index"
+           class="btn position-relative"
+           style="
+           background:#7CFF57;
+           color:#143B39;
+           border:none;
+           width:48px;
+           height:48px;
+           border-radius:12px;">
+
+            <i class="bi bi-bell-fill fs-5"></i>
+
+            @{
+    var currentUser = await _userManager.GetUserAsync(User);
+
+    var notificationCount = currentUser == null
+        ? 0
+        : _context.Notifications.Count(x => x.UserId == currentUser.Id && !x.IsRead);
+}
+
+@if (notificationCount > 0)
+{
+    <span class="badge bg-danger rounded-pill notification-badge">
+        @notificationCount
+    </span>
+}
+
+        </a>
+
+    </div>
+    <h4 class="mb-0 text-white fw-bold">
 
     @ViewData["Title"]
 
@@ -228,6 +260,7 @@
 <partial name="_SelectLanguage" />
 
 <div class="vr"></div>
+
 </div>
 
 </header>
@@ -260,19 +293,19 @@
 
 <script>
 
-function toggleSidebar(){
+function toggleSidebar() {
 
     document.querySelector(".sidebar").classList.toggle("show");
 
 }
 
-document.addEventListener("click",function(e){
+document.addEventListener("click", function (e) {
 
-    const sidebar=document.querySelector(".sidebar");
+    const sidebar = document.querySelector(".sidebar");
 
-    const button=e.target.closest("button");
+    const button = e.target.closest("button");
 
-    if(!sidebar.contains(e.target) && !button){
+    if (!sidebar.contains(e.target) && !button) {
 
         sidebar.classList.remove("show");
 

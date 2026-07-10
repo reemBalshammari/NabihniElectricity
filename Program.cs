@@ -62,7 +62,7 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// Create Roles
+ /*
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -86,6 +86,7 @@ using (var scope = app.Services.CreateScope())
         await userManager.AddToRoleAsync(adminUser, "Admin");
     }
 }
+*/
 
 var localizationOptions =
     app.Services.GetRequiredService<

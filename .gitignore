@@ -12,3 +12,6 @@ appsettings.Development.json
 wwwroot/lib/
 
 node_modules/
+
+publish/
+*.zip

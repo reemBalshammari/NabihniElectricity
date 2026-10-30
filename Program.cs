@@ -78,13 +78,7 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    var adminEmail = "nabihnielectricity@gmail.com";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-    if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
-    {
-        await userManager.AddToRoleAsync(adminUser, "Admin");
-    }
+   
 }
 */
 

@@ -89,11 +89,6 @@ if (result.Succeeded)
     // أي مستخدم جديد يصبح User
     await _userManager.AddToRoleAsync(user, "User");
 
-    // إذا سجل بالإيميل الرسمي يصبح Admin
-    if (user.Email == "nabihnielectricity@gmail.com")
-    {
-        await _userManager.RemoveFromRoleAsync(user, "User");
-        await _userManager.AddToRoleAsync(user, "Admin");
     }
 
     await _signInManager.SignInAsync(user, false);

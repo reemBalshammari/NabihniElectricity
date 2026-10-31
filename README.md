@@ -1,39 +1,71 @@
-<div align="center">
+# نبهني كهرباء | Nabihni Electricity
 
-# ⚡ Nabihni Electricity
+منصة لإدارة البلاغات الكهربائية ومتابعة حالتها، طورتها كمشروعي الختامي في معسكر تطوير تطبيقات الويب باستخدام ASP.NET Core MVC بأكاديمية طويق.
 
-### Smart Electricity Reporting System
+تتيح للمستخدم إرسال البلاغ ومتابعته، وللإدارة مراجعة البلاغات وتحديث حالاتها من خلال صلاحيات منفصلة.
 
-ASP.NET Core MVC • SQL Server • Entity Framework Core
+## المميزات
+
+- إنشاء الحسابات وتسجيل الدخول.
+- إضافة البلاغات وعرضها وتعديلها وحذفها.
+- إرفاق الصور مع البلاغات.
+- إدارة صلاحيات المستخدم والإدارة باستخدام ASP.NET Identity.
+- متابعة حالات البلاغات والإشعارات.
+- دعم العربية والإنجليزية.
+
+## معاينة المنصة
+
+### الصفحة الرئيسية
+![الصفحة الرئيسية](docs/images/home.png)
+
+### إدارة البلاغات
+![إدارة البلاغات](docs/images/reports.jpeg)
+
+### الإشعارات
+![الإشعارات](docs/images/notifications.jpeg)
+
+### خدمات المنصة
+![خدمات المنصة](docs/images/services.jpeg)
+
+## مسار البلاغ
+
+```mermaid
+flowchart TD
+    A["تسجيل الدخول"] --> B["إرسال البلاغ"]
+    B --> C["مراجعة الإدارة"]
+    C --> D["تحديث حالة البلاغ"]
+    D --> E["متابعة المستخدم للتحديثات"]
+```
+
+## التقنيات
+
+C# · ASP.NET Core MVC · Entity Framework Core · SQL Server · ASP.NET Identity · Bootstrap 5 · JavaScript
+
+## تنظيم المشروع
+
+| المجلد | المحتوى |
+|---|---|
+| Controllers | معالجة الطلبات وإجراءات التطبيق |
+| Models | نماذج البيانات |
+| Views | واجهات المستخدم |
+| Data | سياق قاعدة البيانات |
+| Migrations | تغييرات بنية قاعدة البيانات |
+| Resources | موارد الترجمة |
+| wwwroot | التنسيقات والبرامج النصية والصور |
+
+## إعداد التشغيل
+
+يتطلب المشروع .NET SDK المتوافق مع ملف المشروع وSQL Server.
+
+يُضبط اتصال قاعدة البيانات محليًا، ثم تُستعاد الحزم وتُطبق ترحيلات Entity Framework Core قبل تشغيل التطبيق.
+
+إعداد الاتصال المنشور مثال محلي. تُحفظ كلمات المرور وإعدادات الاتصال الخاصة خارج المستودع باستخدام User Secrets أو متغيرات البيئة.
+
+## المشروع المرتبط
+
+[لوحة تحليل بلاغات نبهني كهرباء باستخدام Power BI](https://github.com/reemBalshammari/Nabihni-Electricity-Power-BI)
 
 ---
 
-A web application for managing electricity reports and tracking their status through an easy-to-use platform.
-
-</div>
-
-## 🚀 Tech Stack
-
-- ASP.NET Core MVC (.NET 10)
-- SQL Server
-- Entity Framework Core
-- ASP.NET Identity
-- Bootstrap 5
-
-## ✨ Features
-
-- Authentication & Authorization
-- CRUD Operations
-- User & Admin Roles
-- Image Upload
-- Notifications
-- Arabic & English Support
-
-## 🎓 Bootcamp
-
-Tuwaiq Academy  
-ASP.NET Core MVC Web Development Bootcamp
-
-## 👤 Created by
-
-Reem Buraykan Alshammari
+تطوير: ريم بريكان الشمري  
+معسكر تطوير تطبيقات الويب — أكاديمية طويق
